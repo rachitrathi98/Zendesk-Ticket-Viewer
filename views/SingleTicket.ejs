@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Zendesk Ticket Viewer</title>
+    <link rel='stylesheet'/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </head>
+  <style>
+    h1 {text-align: center; padding-top: 20px;padding-bottom: 20px;}
+    div {text-align: center;}
+    </style>
+  <div class="container-fluid">
+    <div>
+        <h1>Ticket Details</h1>
+    </div> 
+  <body>
+    <%
+    var strTags = "";
+    for(var i=0; i < ticket.tags.length; i++)
+        strTags += "#" + ticket.tags[i] + " "
+  %>
+  <style>
+    tr {border: 2px solid black; background-color:beige;}
+    td {width:60%}
+    .table-responsive {
+    max-width:700px;
+}
+    </style>
+    <div class="row justify-content-center">
+      <div class="ol-auto">
+    <table class="table table-bordered table-responsive" style="width: auto;" >
+
+        <tbody>
+          <tr > 
+            <th scope="row">Ticket Id</th>
+            <td><%= ticket.id %></td>
+          </tr>
+          <tr>
+            <th scope="row">Subject</th>
+            <td><%= ticket.subject %></td>
+          </tr>
+          <tr>
+            <th scope="row">Description</th>
+            <td><%= ticket.description %></td>
+          </tr>
+          <tr>
+            <th scope="row">Tags</th>
+            <td><%= strTags%></td>
+          </tr>
+          <tr>
+            <th scope="row">Created At</th>
+            <td><%= ticket.created_at %></td>
+          </tr>
+          <tr>
+            <th scope="row">Status</th>
+            <td><%= ticket.status %></td>
+          </tr>
+        </tbody>
+
+      </table>
+</div>
+</div>
+      <button class="btn btn-dark"  id="btnBack"> Back </button>            
+
+      <script>
+        $("#btnBack").click(function(event){
+            $("#btnBack").html("<i class='fa fa-circle-o-notch fa-spin'></i> Back");
+            window.history.go(-1); 
+            return false;
+        });
+    </script>
+     
+  </body>

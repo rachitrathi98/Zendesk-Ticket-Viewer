@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Zendesk Ticket Viewer</title>
+    <link rel='stylesheet'/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </head>
+  <style>
+    h1 {text-align: center; padding-top: 20px;padding-bottom: 20px;}
+    div {text-align: center;}
+    .table-responsive {
+    max-height:700px;
+}
+    </style>
+  <div class="container-fluid">
+    <div>
+        <h1>Zendesk Ticket Viewer</h1>
+    </div> 
+    <div class="row justify-content-center">
+      <div class="col-auto">
+        <b>Showing <%= tickets[0].id %> - <%= tickets[tickets.length-1].id %> of <%= count %> Tickets</b>
+      </div></div>
+  <body>
+    <div class="row justify-content-center">
+      <div class="col-auto">
+    <table class="table table-responsive" style="background-color:beige;width: auto;">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">Ticket #</th>
+            <th scope="col">Subject</th>
+            <th scope="col">Details</th>
+          </tr>
+        </thead>
+          <!-- Create row for each ticket avaialbe in tickets array. --> 
+     <% 
+          tickets.forEach(function(ticket) 
+          { 
+              var tags = "";
+              for(var i=0; i < ticket.tags.length; i++)
+                  tags += "#" + ticket.tags[i] + " ";
+      %>
+        <tbody>
+          <tr>
+            <th scope="row"><%= ticket.id %></th>
+            <td><%= ticket.subject %></td>
+            <td>
+                    <button class="btn btn-info detail-view" id="<%= ticket.id %>" type="button"> View </button>
+            </td>
+          </tr>
+        </tbody>
+        <% }); %>
+
+      </table>
+  
+      </div>
+
+    </div>
+      <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+          <li class="page-item">
+            <button class="page-link" href="#" tabindex="-1" id="btnPrevious" <%=PreviousPage%>>Previous</button>
+          </li>
+       <% 
+         for(var i=1; i <= lastP; i++)
+         {
+            
+       %>
+       <li class="page-item">
+        <button class="page-link" id="btnPage" href="#" onclick="pageChange('<%= i%>')"><%=i%></button>
+      </li>
+
+          <% }; %>
+          <li class="page-item">
+            <button class="page-link" id="btnNext" href="#" <%=NextPage%>>Next</button>
+          </li>
+        </ul>
+      </nav>
+      
+      <script>
+        $("#btnPrevious").click(function(event){
+            $("#btnPrevious").html("<i class='fa fa-circle-o-notch fa-spin'></i> Loading");
+            window.location = "/" + <%=parseInt(PageNumber) -1 %>
+        });
+
+        function pageChange(val)
+        {
+            window.location = "/" + val
+        } 
+
+        $("#btnNext").click(function(event){
+            $("#btnNext").html("<i class='fa fa-circle-o-notch fa-spin'></i> Loading");
+            window.location = "/" + <%=parseInt(PageNumber) + 1%>
+        });
+
+        $(".detail-view").click(function (e) {
+            $(e.currentTarget).html("<i class='fa fa-circle-o-notch fa-spin'></i>Loading");
+            window.location = "/ticket/" + e.currentTarget.id;
+        });
+      </script>
+     
+  </body>
