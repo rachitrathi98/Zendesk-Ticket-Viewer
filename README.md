@@ -6,8 +6,6 @@ requests tickets from the user's Zendesk account and displays
 all the tickets through pagination along with detailed view of single ticket. Also, test cases are written
 to verify the application functionality
 
-
-
 ## Steps to Run
 - Install Node.js from [here](https://nodejs.org/en/download/)
 - Clone the repository
@@ -76,7 +74,7 @@ Single Ticket View
 
 **Frameworks:** ExpressJS, Mocha, Bootstrap
 
-**Languages:** Embedded JavaScript
+**Languages:** Embedded JavaScript (EJS)
 
 
 
